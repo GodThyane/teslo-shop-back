@@ -1,35 +1,17 @@
 import { Schema } from 'mongoose';
 
-export const ProductSchema = new Schema(
+export const UserSchema = new Schema(
   {
-    description: { type: String, required: true },
-    images: [{ type: String }],
-    inStock: { type: Number, required: true, default: 0 },
-    price: { type: Number, required: true, default: 0 },
-    sizes: [
-      {
-        type: String,
-        enum: {
-          values: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
-          message: '{VALUE} Invalid size',
-        },
-      },
-    ],
-    slug: { type: String, required: true, unique: true },
-    tags: [{ type: String }],
-    title: { type: String, required: true },
-    type: {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: {
       type: String,
       enum: {
-        values: ['shirts', 'pants', 'hoodies', 'hats'],
-        message: '{VALUE} Invalid type',
-      },
-    },
-    gender: {
-      type: String,
-      enum: {
-        values: ['men', 'women', 'kid', 'unisex'],
-        message: '{VALUE} Invalid gender',
+        values: ['admin', 'client', 'super-user', 'SEO'],
+        message: '{VALUE} is not supported',
+        default: 'client',
+        required: true,
       },
     },
   },
@@ -37,5 +19,3 @@ export const ProductSchema = new Schema(
     timestamps: true,
   },
 );
-
-ProductSchema.index({ title: 'text', tags: 'text' });

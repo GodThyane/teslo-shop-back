@@ -21,12 +21,12 @@ export class UsersService {
   constructor(@Inject('USER_MODEL') private readonly userModel: Model<User>) {}
 
   async fill(): Promise<User[]> {
-    await this.userModel.deleteMany();
+    await this.userModel.deleteMany().exec();
     return await this.userModel.insertMany(initialData.users);
   }
 
   async login({ email, password }: LoginDto) {
-    const user = await this.userModel.findOne({ email });
+    const user = await this.userModel.findOne({ email }).exec();
     if (!user) {
       throw new BadRequestException('Usuario o contraseña incorrectos');
     }

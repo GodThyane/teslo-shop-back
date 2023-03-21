@@ -27,7 +27,7 @@ export class CloudinaryService {
   }
 
   async delete(image: string) {
-    const [fileId, extension] = image
+    const [fileId] = image
       .substring(image.lastIndexOf('/') + 1)
       .split('.');
     if (fileId) {
